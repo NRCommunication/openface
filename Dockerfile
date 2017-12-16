@@ -23,7 +23,10 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD . /root/openface
+RUN chmod +x /root/openface/websock-server.py
+
 RUN python -m pip install --upgrade --force pip
+
 RUN cd ~/openface && \
     ./models/get-models.sh && \
     pip2 install -r requirements.txt && \
@@ -31,5 +34,7 @@ RUN cd ~/openface && \
     pip2 install --user --ignore-installed -r demos/web/requirements.txt && \
     pip2 install -r training/requirements.txt
 
-EXPOSE 8000 9000
-CMD /bin/bash -l -c '/root/openface/demos/web/start-servers.sh'
+ENV WEBSOCK_PORT 9000
+ENV WEBSOCK_LOG /tmp/openface.websocket.log
+
+CMD /bin/bash -l -c '/root/openface/websock-server.py  --port $WEBSOCK_PORT  2>&1 | tee $WEBSOCK_LOG & wait'

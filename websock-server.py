@@ -17,7 +17,7 @@
 import os
 import sys
 fileDir = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(fileDir, "..", ".."))
+sys.path.append(fileDir)
 
 import txaio
 txaio.use_twisted()
@@ -52,12 +52,12 @@ import matplotlib.cm as cm
 
 import openface
 
-modelDir = os.path.join(fileDir, '..', '..', 'models')
+modelDir = os.path.join(fileDir, 'models')
 dlibModelDir = os.path.join(modelDir, 'dlib')
 openfaceModelDir = os.path.join(modelDir, 'openface')
 # For TLS connections
-tls_crt = os.path.join(fileDir, 'tls', 'server.crt')
-tls_key = os.path.join(fileDir, 'tls', 'server.key')
+tls_crt = os.path.join(fileDir, 'resource/cert/server.crt')
+tls_key = os.path.join(fileDir, 'resource/cert/server.key')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dlibFacePredictor', type=str, help="Path to dlib's face predictor.",
