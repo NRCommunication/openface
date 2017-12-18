@@ -31,7 +31,7 @@ RUN cd ~/openface && \
     ./models/get-models.sh && \
     pip2 install -r requirements.txt && \
     python2 setup.py install && \
-    pip2 install --user --ignore-installed -r demos/web/requirements.txt && \
+    pip2 install --user --ignore-installed -r requirements.ws.txt && \
     pip2 install -r training/requirements.txt
 
 ENV WEBSOCK_PORT 9000
